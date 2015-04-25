@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>TWrap HTML Layout</title>
+    <link rel="stylesheet" href="css/twrap.css" type="text/css"/>
+    <style>
+        .twrap-shell-head, .twrap-shell-head-logo, .twrap-shell-head-account,
+        .twrap-shell-main, .twrap-shell-main-nav, .twrap-shell-main-content, .twrap-shell-main-info,
+        .twrap-shell-foot {
+            position: absolute;
+        }
+        .twrap-shell-head {
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50px;
+        }
+        .twrap-shell-head-logo {
+            top: 4px;
+            left: 4px;
+            height: 42px;
+            width: 128px;
+            background: orange;
+        }
+        .twrap-shell-head-account {
+            top: 4px;
+            right: 4px;
+            width: 300px;
+            height: 42px;
+            background: blue;
+        }
+        .twrap-shell-main {
+            top: 50px;
+            left: 0;
+            bottom: 40px;
+            right: 0;
+        }
+        .twrap-shell-main-content,
+        .twrap-shell-main-nav,
+        .twrap-shell-main-info {
+            top: 0;
+            bottom: 0;
+        }
+        .twrap-shell-main-nav {
+            width: 250px;
+            background: #eee;
+        }
+        .twrap-x-closed .twrap-shell-main-nav {
+            width: 0;
+        }
+        .twrap-shell-main-content {
+            left: 250px;
+            right: 250px;
+            background: #ddd;
+        }
+        .twrap-x-closed .twrap-shell-main-content {
+            left: 0;
+        }
+        .twrap-x-r-closed .twrap-shell-main-content {
+            right: 0;
+        }
+        .twrap-shell-main-info {
+            width:250px;
+            right: 0;
+            background: #eee;
+        }
+        .twrap-x-r-closed .twrap-shell-main-info {
+            width: 0;
+        }
+        .twrap-shell-foot {
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: #f2c2ff;
+        }
+    </style>
+</head>
+<body>
+  <div id="twrap">
+      <div class="twrap-shell-head">
+          <div class="twrap-shell-head-logo"></div>
+          <div class="twrap-shell-head-account"></div>
+      </div>
+      <div class="twrap-shell-main">
+          <div class="twrap-shell-main-nav"></div>
+          <div class="twrap-shell-main-content"></div>
+          <div class="twrap-shell-main-info"></div>
+      </div>
+      <div class="twrap-shell-foot"></div>
+  </div>
+</body>
+</html>
