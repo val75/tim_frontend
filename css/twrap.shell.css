@@ -3,7 +3,7 @@
  * Shell styles
 */
 
-.twrap-shell-head, .twrap-shell-head-logo, .twrap-shell-head-account,
+.twrap-shell-head, .twrap-shell-head-logo, .twrap-shell-head-acct,
 .twrap-shell-main, .twrap-shell-main-nav, .twrap-shell-main-content, .twrap-shell-main-info,
 .twrap-shell-foot {
     position: absolute;
@@ -18,18 +18,33 @@
 
 .twrap-shell-head-logo {
     top: 4px;
-    left: 4px;
-    height: 42px;
+    left: 8px;
+    height: 32px;
     width: 128px;
-    background: orange;
 }
 
-.twrap-shell-head-account {
-    top: 4px;
-    right: 4px;
-    width: 300px;
-    height: 42px;
-    background: blue;
+.twrap-shell-head-logo h1 {
+    font : 800 22px/22px Arial, Helvetica, sans-serif;
+    margin : 0;
+}
+
+.twrap-shell-head-logo p {
+    font : 800 10px/10px Arial, Helvetica, sans-serif;
+    margin : 0;
+}
+
+.twrap-shell-head-acct {
+    top          : 4px;
+    right        : 0;
+    width        : 210px;
+    height       : 32px;
+    line-height  : 32px;
+    background   : #888;
+    color        : #fff;
+    text-align   : center;
+    cursor       : pointer;
+    overflow     : hidden;
+    text-overflow: ellipsis;
 }
 
 .twrap-shell-main {
@@ -47,16 +62,17 @@
 }
 
 .twrap-shell-main-nav {
-    width: 250px;
-    background: #eee;
+    width      : 400px;
+    background : #eec;
+    z-index    : 1;
 }
     .twrap-x-closed .twrap-shell-main-nav {
         width: 0;
     }
 
 .twrap-shell-main-content {
-    left: 250px;
-    right: 250px;
+    left: 400px;
+    right: 0;
     background: #ddd;
 }
 

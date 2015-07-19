@@ -1,14 +1,26 @@
 <!DOCTYPE html>
+<!--
+  twrap.html
+  TWrap browser document
+-->
+
 <html>
 
 <head lang="en">
-    <meta charset="UTF-8">
+    <!-- ie9+ rendering support for latest standards -->
+    <meta http-equiv="Content-Type" content="text/html"; charset="ISO-8859-1">
+    <meta http-equiv="X-UA-COMPATIBLE" content="IE=edge" />
+
     <title>TWrap Home</title>
 
-    <!-- stylesheets -->
-    <link rel="stylesheet" href="css/twrap.css"                           type="text/css"/>
-    <link rel="stylesheet" href="css/twrap.shell.css"                     type="text/css"/>
+    <!-- third party stylesheets -->
     <link rel="stylesheet" href="css/jstree-themes/default/style.min.css" type="text/css"/>
+
+    <!-- twrap stylesheets -->
+    <link rel="stylesheet" href="css/twrap.css"                           type="text/css"/>
+    <link rel="stylesheet" href="css/twrap.libnav.css"                    type="text/css"/>
+    <link rel="stylesheet" href="css/twrap.shell.css"                     type="text/css"/>
+
 
     <!-- third-party javascript -->
     <script src="js/jq/taffy.js"              ></script>
@@ -18,11 +30,13 @@
     <script src="js/jq/jstree.js"             ></script>
 
     <!-- twrap javascript -->
-    <script src="js/twrap.js"      ></script>
-    <script src="js/twrap.data.js" ></script>
-    <script src="js/twrap.fake.js" ></script>
-    <script src="js/twrap.model.js"></script>
-    <script src="js/twrap.shell.js"></script>
+    <script src="js/twrap.js"        ></script>
+    <script src="js/twrap.util.js"   ></script>
+    <script src="js/twrap.data.js"   ></script>
+    <script src="js/twrap.fake.js"   ></script>
+    <script src="js/twrap.model.js"  ></script>
+    <script src="js/twrap.shell.js"  ></script>
+    <script src="js/twrap.libnav.js" ></script>
 
     <script>
         $(function () { twrap.initModule( $('#twrap') ); });

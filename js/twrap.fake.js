@@ -14,7 +14,8 @@
 twrap.fake = (function () {
     'use strict';
 
-    var getPeopleList, fakeIdSerial, makeFakeId, mockSio;
+    var getPeopleList, fakeIdSerial, makeFakeId, mockSio,
+        getLibraryList;
 
     // Add a mock server ID serial number counter
     fakeIdSerial = 3;
@@ -28,6 +29,13 @@ twrap.fake = (function () {
         return [
             { name : 'Valentin', _id : 'id_01' },
             { name : 'Vivek', _id : 'id_02' }
+        ];
+    };
+
+    getLibraryList = function () {
+        return [
+            { name : 'ConnectSsh', _id : 'id_01' },
+            { name : 'ConnectTelnet', _id : 'id_02'}
         ];
     };
 
@@ -59,7 +67,8 @@ twrap.fake = (function () {
     }());
 
     return {
-        getPeopleList : getPeopleList,
-        mockSio       : mockSio
+        getPeopleList  : getPeopleList,
+        getLibraryList : getLibraryList,
+        mockSio        : mockSio
     };
 }());

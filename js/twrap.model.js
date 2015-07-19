@@ -22,15 +22,22 @@ twrap.model = (function () {
 
         stateMap = {
             // Key to store the anonymous person object
-            anon_user      : null,
+            anon_user       : null,
             // Key to store a map of person objects keyed by cid
-            people_cid_map : {},
-            cid_serial     : 0,
+            people_cid_map  : {},
+            cid_serial      : 0,
             // Key to store a TaffyDB collection of person objects.
             // Initialize it as an empty collection.
-            people_db      : TAFFY(),
+            people_db       : TAFFY(),
             // Key to store the current user object.
-            user           : null
+            user            : null,
+            // Key to store a TaffyDB collection of procedure objects.
+            // Initialize it as an empty collection
+            library_db      : TAFFY(),
+            // Key to store a map of procedure objects keyed by cid
+            library_cid_map : {},
+            // Key to store the current selected procedure object
+            procedure       : null
         },
 
         // Flag tells Model to use data, objects abd methods from
@@ -38,7 +45,87 @@ twrap.model = (function () {
         isFakeData = true,
 
         personProto, makeCid, clearPeopleDb, completeLogin,
-        makePerson, removePerson, people, initModule;
+        makePerson, removePerson, people, initModule,
+        library, procedureProto, clearLibraryDb,
+        makeProcedure, removeProcedure;
+
+    // The library object API
+    // ----------------------
+    // The library object is available at twrap.model.library.
+    // The library object provides methods and events to manage
+    // a collection of procedure objects. Its public methods include:
+    //   * get_db() - return the TaffyDB database of all the
+    //     procedure categories and objects.
+    //
+    // Each procedure is represented by a procedure object.
+
+    // Prototype for procedure objects
+    procedureProto = {
+        get_is_proc : function () {
+            return this.cid === stateMap.proc.cid;
+        }
+    };
+
+    // Method: clearLibraryDb
+    // Remove all procedure objects
+    clearLibraryDb = function () {
+        stateMap.library_db = TAFFY();
+        stateMap.library_cid_map = {};
+    };
+
+    // Method: makeProcedure
+    // Creates a procedure object and stores it in a TaffyDB
+    // collection. Ensure it also updates the index in the
+    // library_cid_map
+    makeProcedure = function (procedure_map) {
+        var procedure,
+            cid  = procedure_map.cid,
+            id   = procedure_map.id,
+            name = procedure_map.name;
+
+        if ( cid === undefined || ! name ) {
+            throw 'client id and name required';
+        }
+
+        procedure      = Object.create( procedureProto );
+        procedure.cid  = cid;
+        procedure.name = name;
+
+        if ( id ) { procedure.id = id; }
+
+        stateMap.library_cid_map[ cid ] = procedure;
+
+        stateMap.library_db.insert( procedure );
+        return procedure;
+    };
+
+    // Method: removeProcedure
+    // Removes a procedure from the library list
+    removeProcedure = function ( procedure ) {
+        if ( ! procedure ) { return false; }
+
+        stateMap.library_db({ cid : procedure.cid }).remove();
+        if ( procedure.cid ) {
+            delete stateMap.library_cid_map[ procedure.cid ];
+        }
+        return true;
+    };
+
+    library = (function () {
+        var get_by_cid, get_db, get_procedure, show_tree;
+
+        get_by_cid = function ( cid ) {
+            return stateMap.library_cid_map[ cid ];
+        };
+
+        get_db = function () { return stateMap.library_db; };
+
+        get_procedure = function () { return stateMap.procedure; };
+
+        show_tree = function ( proc_name ) {
+            var sio = isFakeData ? twrap.fake.mockSio : twrap.data.getSio();
+        };
+    }());
 
     // The people object API
     // -------------------
@@ -226,7 +313,8 @@ twrap.model = (function () {
     }());
 
     initModule = function () {
-        var i, people_list, person_map;
+        var i, people_list, person_map,
+            library_list, procedure_map;
 
         // Initialize anonymous person
         stateMap.anon_user = makePerson({
@@ -247,11 +335,21 @@ twrap.model = (function () {
                     name : person_map.name
                 });
             }
+            library_list = twrap.fake.getLibraryList();
+            for ( i = 0; i < library_list.length; i++ ) {
+                procedure_map = library_list[ i ];
+                makeProcedure({
+                    cid  : procedure_map._id,
+                    id   : procedure_map._id,
+                    name : procedure_map.name
+                });
+            }
         }
     };
 
     return {
         initModule : initModule,
-        people     : people
+        people     : people,
+        library    : library
     };
 }());
