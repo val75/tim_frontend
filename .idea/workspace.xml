@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8a3db4bd-af85-4d09-a85f-3ba71f5b62fb" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/css/layout-default-latest.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/js/twrap.shell_with_layout.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/js/twrap_with_layout.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/js/twrap_with_layout.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/twrap_layout.html" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/projectFilesBackup/.idea/workspace.xml" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="tim_frontend.iws" />
