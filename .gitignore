@@ -1,0 +1,3 @@
+# Ignore .idea directory
+# This is where Jetbrains stores all the project specific settings
+.idea/
