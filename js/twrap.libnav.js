@@ -19,6 +19,16 @@ twrap.libnav = (function () {
             main_html : String()
               + '<div style="padding: 1em; color: black">'
                 + 'Say hello to libnav'
+              + '</div>'
+              + '<div style="padding: 1em"; id="jstree">'
+                + '<ul>'
+                  + '<li>Root node 1'
+                    + '<ul>'
+                      + '<li>Child node 1</li>'
+                      + '<li>Child node 2</li>'
+                    + '</ul>'
+                  + '</li>'
+                + '</ul>'
               + '</div>',
             settable_map : {}
         },
@@ -36,7 +46,10 @@ twrap.libnav = (function () {
     // Begin DOM method /setJqueryMap/
     setJqueryMap = function () {
         var $container = stateMap.$container;
-        jqueryMap = { $container : $container };
+        jqueryMap = {
+            $container : $container,
+            $tree : $container.find('#jstree')
+        };
     };
     // End DOM method /setJqueryMap/
 
@@ -73,6 +86,7 @@ twrap.libnav = (function () {
         $container.html( configMap.main_html );
         stateMap.$container = $container;
         setJqueryMap();
+        jqueryMap.$tree.jstree();
         return true;
     };
     // End public method /initModule/
