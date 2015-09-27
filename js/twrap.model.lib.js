@@ -80,10 +80,13 @@ twrap.model.lib = (function () {
     // library_cid_map
     makeNode = function (node_map) {
         var node,
-            cid   = node_map.cid,
-            id    = node_map.id,
-            name  = node_map.name,
-            brief = node_map.brief;
+            cid      = node_map.cid,
+            id       = node_map.id,
+            name     = node_map.name,
+            text     = node_map.name,
+            brief    = node_map.brief,
+            children = node_map.children,
+            parent   = node_map.parent;
 
         if ( cid === undefined || name ) {
             //throw 'client id and name required';
@@ -92,10 +95,15 @@ twrap.model.lib = (function () {
         node = Object.create( nodeProto );
         node.cid = cid;
         node.name = name;
+        node.text = text;
 
         if ( id ) { node.id = id; }
 
         if ( brief ) { node.brief = brief; }
+
+        if ( children ) { node.children = children; }
+
+        if ( parent ) { node.parent = parent; }
 
         stateMap.library_cid_map[ cid ] = node;
 
@@ -121,7 +129,7 @@ twrap.model.lib = (function () {
         var get_by_cid, get_db, get_node;
 
         // Convenience method
-        get_by_cid = function () {
+        get_by_cid = function ( cid ) {
             return stateMap.library_cid_map[ cid ];
         };
 
@@ -145,7 +153,8 @@ twrap.model.lib = (function () {
             cid : configMap.root_id,
             id : configMap.root_id,
             name : 'Root',
-            brief : "Library Root Node"
+            brief : "Library Root Node",
+            children : true
         });
 
         stateMap.node = stateMap.root_node;
@@ -158,7 +167,9 @@ twrap.model.lib = (function () {
                     cid : node_map._id,
                     id : node_map._id,
                     name : node_map.name,
-                    brief : node_map.brief
+                    brief : node_map.brief,
+                    parent : node_map.parent,
+                    children : node_map.children
                 });
             }
         }

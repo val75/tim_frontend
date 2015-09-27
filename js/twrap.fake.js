@@ -34,8 +34,10 @@ twrap.fake = (function () {
 
     getLibraryList = function () {
         return [
-            { name : 'ConnectSsh', _id : 'id_01' , brief : 'Connect to host through ssh' },
-            { name : 'ConnectTelnet', _id : 'id_02', brief : 'Connect to host through telnet' }
+            { name : 'Connect Procedures', _id : 'id_01', brief : 'Connect lib', children : true, parent : 'r0' },
+            { name : 'ConnectSsh', _id : 'id_02' , brief : 'Connect to host through ssh', parent : 'id_01' },
+            { name : 'ConnectTelnet', _id : 'id_03', brief : 'Connect to host through telnet', parent : 'id_01' },
+            { name : 'Other stuff', _id : 'id_04', brief : 'Just other', children : true, parent : 'r0' }
         ];
     };
 

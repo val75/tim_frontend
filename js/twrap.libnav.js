@@ -30,12 +30,16 @@ twrap.libnav = (function () {
                   + '</li>'
                 + '</ul>'
               + '</div>',
-            settable_map : {}
+            settable_map : {},
+            root_id : 'r0'
         },
-        stateMap  = { $container : null},
+        stateMap  = {
+            $container : null
+        },
         jqueryMap = {},
 
-        setJqueryMap, configModule, initModule
+        setJqueryMap, getRootJson, getDbJson,
+        configModule, initModule
     ;
     //----------------- END MODULE SCOPE VARIABLES ---------------
 
@@ -52,6 +56,26 @@ twrap.libnav = (function () {
         };
     };
     // End DOM method /setJqueryMap/
+
+    getRootJson = function () {
+        var rootNode = twrap.model.lib.library.get_by_cid(configMap.root_id);
+        console.log(rootNode.text);
+        console.log(rootNode.children);
+
+        return rootNode;
+    };
+
+    getDbJson = function () {
+        var libDb = twrap.model.lib.library.get_db(),
+            //libDb1 = libDb(configMap.root_id).remove(),
+            libList = libDb().stringify();
+
+        console.log(libList);
+
+        return libList;
+    };
+
+    //--------------------- END DOM METHODS --------------------
 
     //------------------- BEGIN EVENT HANDLERS -------------------
     //-------------------- END EVENT HANDLERS --------------------
@@ -86,7 +110,21 @@ twrap.libnav = (function () {
         $container.html( configMap.main_html );
         stateMap.$container = $container;
         setJqueryMap();
-        jqueryMap.$tree.jstree();
+
+        jqueryMap.$tree.jstree({
+            'core' : {
+                'data' : function (node, cb) {
+                    var libDb = twrap.model.lib.library.get_db();
+                    console.log("Calling data function for node " + node.id);
+                    if(node.id === "#") {
+                        cb(JSON.parse(libDb({ id : configMap.root_id}).stringify()));
+                    } else {
+                        console.log(libDb({ parent : node.id }).stringify());
+                        cb(JSON.parse(libDb({ parent : node.id }).stringify()));
+                    }
+                }
+            }
+        });
         return true;
     };
     // End public method /initModule/
